@@ -1,0 +1,138 @@
+﻿<Window x:Class="Volot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
+        mc:Ignorable="d"
+        Title="Волот" Height="720" Width="1434.5" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid Background="LightBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="280" Width="280" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition MinWidth="512" />
+            <ColumnDefinition Width="349" />
+            <ColumnDefinition MinWidth="280" Width="280" />
+        </Grid.ColumnDefinitions>
+
+        <Ribbon Grid.ColumnSpan="5" Grid.Row="0" 
+                  Background="LightGray"
+                  BorderBrush="White"
+                  MouseOverBackground="LightBlue"
+                  MouseOverBorderBrush="Blue"
+                  PressedBackground="Blue"
+                  PressedBorderBrush="DarkBlue"
+                  CheckedBackground="LightBlue"
+                  CheckedBorderBrush="Blue"
+                  FocusedBackground="LightSlateGray"
+                  FocusedBorderBrush="SlateBlue">
+            <RibbonTab Header="Файл">
+                <RibbonGroup x:Name="OpenGroup" Header="Открыть">
+                    <RibbonButton Label="Открыть файл" x:Name="OpenFileButton" Click="OpenFileButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Document_64x.png"/>
+                    <RibbonButton Label="Открыть папку" x:Name="OpenDirButton" Click="OpenDirButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/OpenFolder_64x.png"/>
+                    <RibbonButton Label="Открыть диск" x:Name="OpenDiskButton" Click="OpenDiskButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/CD_64x.png"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="SaveGroup" Header="Сохранить">
+                    <RibbonButton Label="Сохранить снимок" x:Name="SaveFileButton" Click="SaveButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Save_64x.png"/>
+                    <RibbonButton Label="Закрыть снимок" x:Name="CloseFileButton" Click="CloseFileButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Close_64x.png"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="InfoGroup" Header="Данные">
+                    <RibbonButton Label="Показать данные" Click="ShowParametersWindowButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png" />
+                </RibbonGroup>
+                <RibbonGroup x:Name="MarkerGroup" Header="Размеры">
+                    <RibbonButton Label="Установить размер маркера" Click="BasementMarkerPhysSizeClick" LargeImageSource="/Volot;component/Pictures/Menu/RulerMeasure_64x.png" />
+                </RibbonGroup>
+                <RibbonGroup x:Name="ModelGroup" Header="3D модель">
+                    <RibbonButton Label="Получить параметры" Click="LoadXMLClick" LargeImageSource="/Volot;component/Pictures/Menu/RulerMeasure_64x.png" />
+                    <RibbonButton Label="Загрузить модель" Click="AddPoints_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png" />
+                    <RibbonButton Label="Расчет" Click="MakeCalc_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
+                    <RibbonButton Label="Показать в папке" Click="OpenFolder_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
+                    <RibbonButton Label="Показать" Click="ShowView_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png" />
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Инструменты">
+                <RibbonGroup x:Name="RotateGroup" Header="Поворот">
+                    <RibbonButton Label="Повернуть на 90 градусов по часовой" Click="Rotate90CWButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/RotateRight_64x.png"/>
+                    <RibbonButton Label="Повернуть на 90 градусов против часовой" Click="Rotate90CCWButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/RotateLeft_64x.png"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="ZoomGroup" Header="Увеличение">
+                    <RibbonButton Label="25%" Tag="0.25" Click="ScaleButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png"/>
+                    <RibbonButton Label="50%" Tag="0.5" Click="ScaleButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png"/>
+                    <RibbonButton Label="100%" Tag="1" Click="ScaleButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png"/>
+                    <RibbonButton Label="200%" Tag="2" Click="ScaleButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png"/>
+                    <RibbonButton Label="400%" Tag="4" Click="ScaleButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="FilterGroup" Header="Фильтр">
+                    <RibbonButton Label="Контраст по умолчанию" x:Name="ChangeConstrastButton" Click="ChangeConstrastButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Filter_64x.png"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="InstrumentsGroup" Header="Окно">
+                    <RibbonButton Label="Показать инструменты" x:Name="ShowInstrumentsButton" Click="SelectionToolWindowButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Toolbox_64x.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Данные" >
+                <RibbonGroup x:Name="ExportGroup" Header="Экспорт">
+                    <RibbonButton Label="Экспорт в XLS" Click="ExportXLSButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
+                    <RibbonButton Label="Экспорт в XML" Click="ExportXMLButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/ProjectXML_64x.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" />
+
+        <TreeView Name="ImagesListTreeView" Grid.Row="1" Grid.Column="0" AllowDrop="True" Drop="ImagesListTreeView_Drop">
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="AddPatientButtonMenu" Header="Добавить пациента..." Click="AddPatientButtonMenu_Click"/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                                <EventSetter
+                    Event="TreeViewItem.MouseRightButtonDown"
+                    Handler="TreeViewItem_MouseRightButtonDown"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="2"></ScrollViewer>
+
+        <ScrollViewer x:Name="scrollViewer" Grid.Column="2" Grid.Row="1"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,0,5,0" >
+            <Canvas MouseMove="myCanvas_MouseMove" MouseDown="image_MouseDown" MouseUp="image_MouseUp" MouseLeave="myCanvas_MouseLeave" x:Name="myCanvas" Width="{Binding ActualWidth, ElementName=image}" Height="{Binding ActualHeight, ElementName=image}" >
+                <Canvas.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image x:Name="image">
+                            </Image>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Canvas.Background>
+            </Canvas>
+        </ScrollViewer>
+
+        <ListView x:Name="ItemList" Grid.Row="1" Grid.Column="4">
+
+        </ListView>
+
+
+        <GridSplitter Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" />
+        <GridSplitter Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" />
+        <Grid Name="overall_grid" Grid.Column="3" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <HelixToolkit:HelixViewport3D ZoomExtentsWhenLoaded="True" MouseDown="MainViewport_MouseDown" x:Name="m_helix_viewport" BorderThickness="1" ShowCoordinateSystem="True" ShowFrameRate="True" BorderBrush="#7F808080" Background="#FF363636" CoordinateSystemLabelForeground="#FFC7C7C7" >
+
+                <!-- Remember to add light to the scene -->
+                <HelixToolkit:DefaultLights/>
+
+                <!-- The content of this visual is defined in MainViewModel.cs -->
+                <ModelVisual3D Content="{Binding our_Model}"/>
+            </HelixToolkit:HelixViewport3D>
+        </Grid>
+    </Grid>
+</Window>

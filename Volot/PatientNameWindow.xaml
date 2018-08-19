@@ -1,0 +1,36 @@
+﻿<Window x:Class="Volot.PatientNameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Введите пациента" Height="200" Width="300" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Имя"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Отчество"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Фамилия"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Возраст"/>
+
+        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="0" Margin="5"/>
+        <TextBox x:Name="PatronymicTextBox" Grid.Column="1" Grid.Row="1" Margin="5"/>
+        <TextBox x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="2" Margin="5"/>
+        <TextBox x:Name="AgeTextBox" Grid.Column="1" Grid.Row="3" Margin="5" PreviewTextInput="AgeTextBox_PreviewTextInput"/>
+
+        <Button x:Name="OKButton" Grid.Column="0" Grid.Row="4" Margin="5" Content="ОК" Click="OKButton_Click"/>
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="4" Margin="5" Content="Отмена" Click="CancelButton_Click"/>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,33 @@
+﻿<Window x:Class="Volot.InstrumentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Volot"
+        mc:Ignorable="d"
+        Title="Панель инструментов" Height="125" Width="300" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Орган (инструмент)"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Имя"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Точка"/>
+
+        <ComboBox x:Name="TypeComboBox" Grid.Column="1" Grid.Row="0" Margin="5" SelectionChanged="TypeComboBox_SelectionChanged">
+            <ComboBoxItem>Позвонок</ComboBoxItem>
+            <ComboBoxItem>Угол между остистыми отростками</ComboBoxItem>
+            <ComboBoxItem>Маркер направления</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="NameComboBox" Grid.Column="1" Grid.Row="1" Margin="5" SelectionChanged="NameComboBox_SelectionChanged"/>
+        <ComboBox x:Name="PointComboBox" Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+    </Grid>
+</Window>

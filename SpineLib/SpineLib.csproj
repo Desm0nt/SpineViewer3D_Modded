@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0033661-AED5-4CA4-81BF-890FD472428D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpineLib</RootNamespace>
+    <AssemblyName>SpineLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dicom.Core, Version=2.0.2.0, Culture=neutral, PublicKeyToken=3a13f649e28eb09a, processorArchitecture=MSIL">
+      <HintPath>..\packages\fo-dicom.Core.2.0.2\lib\portable-net45+netcore45+wpa81\Dicom.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dicom.Legacy, Version=2.0.2.0, Culture=neutral, PublicKeyToken=3a13f649e28eb09a, processorArchitecture=MSIL">
+      <HintPath>..\packages\fo-dicom.Legacy.2.0.2\lib\portable-net45+netcore45+wpa81\Dicom.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dicom.Platform, Version=2.0.2.0, Culture=neutral, PublicKeyToken=3a13f649e28eb09a, processorArchitecture=MSIL">
+      <HintPath>..\packages\fo-dicom.Platform.2.0.2\lib\net45\Dicom.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataExporter.cs" />
+    <Compile Include="DicomUtils.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\IDescriptionCalculator.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Interspine\BackSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Interspine\FrontSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Interspine\LeftSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Interspine\RightSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Spine\BackSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Spine\FrontSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Spine\LeftSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\Spine\RightSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\SpinousProcess\LeftSide.cs" />
+    <Compile Include="Geometry\DescriptionCalculators\SpinousProcess\RightSide.cs" />
+    <Compile Include="Geometry\Descriptions\InterspineDescription.cs" />
+    <Compile Include="Geometry\Descriptions\SpineDescription.cs" />
+    <Compile Include="Geometry\Descriptions\SpinousProcessDescription.cs" />
+    <Compile Include="Geometry\GeometryHelper.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\ClineAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\DifferenceAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\DifferenceCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\LeftSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\RightSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Interspine\SpinesAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\IParameterCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\ClineAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\DownSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\HorizontalAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\LeftSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\RightSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\TrapezeAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\UpSideCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\Spine\VerticalAngleCalculator.cs" />
+    <Compile Include="Geometry\ParametersCalculators\SpinousProcess\AngleCalculator.cs" />
+    <Compile Include="Geometry\SpineReader.cs" />
+    <Compile Include="Geometry\SpineStorage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpineConstants.cs" />
+    <Compile Include="Tests\GeometryHelperTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpineLib.DB\SpineLib.DB.csproj">
+      <Project>{D1E68949-BF07-4944-BF4F-D679FCCCAB1F}</Project>
+      <Name>SpineLib.DB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\fo-dicom.Platform.2.0.2\build\net45\fo-dicom.Platform.targets" Condition="Exists('..\packages\fo-dicom.Platform.2.0.2\build\net45\fo-dicom.Platform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\fo-dicom.Platform.2.0.2\build\net45\fo-dicom.Platform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fo-dicom.Platform.2.0.2\build\net45\fo-dicom.Platform.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

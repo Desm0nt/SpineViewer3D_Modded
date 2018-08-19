@@ -1,0 +1,27 @@
+﻿<Window x:Class="Volot.ViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+        mc:Ignorable="d"
+        Title="ViewWindow" Height="493" Width="653.827">
+    <Grid Margin="0,21,2,6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="482*"/>
+            <ColumnDefinition Width="159"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <wpf:OpenGLControl x:Name="openGLControl" OpenGLInitialized="OpenGLControl_OpenGLInitialized" Resized="openGLControl_Resized" OpenGLDraw="OpenGLControl_OpenGLDraw" MouseDown="openGlControl_MouseDown" MouseUp="openGlControl_MouseUp" MouseMove="openGlControl_MouseMove" RenderContextType="FBO"  DrawFPS="True" Margin="10,10,11,10" Width="{Binding ActualHeight, ElementName=openGLControl, Mode=OneWay}" />
+        <Button x:Name="Button1" Content="Отобразить" HorizontalAlignment="Right" Margin="0,64,7,0" VerticalAlignment="Top" Width="137" RenderTransformOrigin="0.844,0.569" Click="btn3_Click" Grid.Column="1" Height="22"/>
+        <Button Content="-" Margin="0,121,78,0" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.844,0.569" Click="Far_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+        <Button Content="+" Margin="0,121,27,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.844,0.569" Click="Close_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+        <Button Content="left" Margin="0,173,96,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.844,0.569" Click="left_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22" AutomationProperties.HelpText="left"/>
+        <Button Content="up" Margin="0,156,51,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.844,0.569" Click="up_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+        <Button Content="down" Margin="0,189,51,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.844,0.569" Click="down_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+        <Button Content="right" Margin="0,173,7,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.844,0.569" Click="right_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+        <Button Content="left" Margin="0,225,99,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.844,0.569" Click="left1_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22" AutomationProperties.HelpText="left"/>
+        <Button Content="right" Margin="0,225,10,0" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.844,0.569" Click="right1_Click" HorizontalAlignment="Right" Grid.Column="1" Height="22"/>
+    </Grid>
+</Window>
