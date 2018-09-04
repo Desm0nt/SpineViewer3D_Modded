@@ -152,6 +152,7 @@ namespace Volot
         //IRepository<string, List<Tetrahedron>> repository;
         //IRepository<string, List<Triangle>> trnglRepository;
         IRepository<string, List<Tetrahedron>> tetrahedralRepository;
+        IRepository2<string, List<MeshGenerator.Elements.Triangle>, List<Node>> trinagleRepository;
 
         double forceValue = 1;
 
@@ -3049,6 +3050,7 @@ namespace Volot
 
             //trnglRepository = new StlTriangularRepository<string>();
             tetrahedralRepository = new StlTetrahedralRepository<string>();
+            trinagleRepository = new StlTriangularRepository2<string>();
             List<List<MeshGenerator.Elements.Triangle>> vertebras = new List<List<MeshGenerator.Elements.Triangle>>();
             List<List<MeshGenerator.Elements.Triangle>> disks = new List<List<MeshGenerator.Elements.Triangle>>();
 
@@ -3060,7 +3062,10 @@ namespace Volot
                 vertebras.Add(ReadVertebra(i, Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\"));
             }
             List<MeshGenerator.Elements.Triangle> allVertebras = new List<MeshGenerator.Elements.Triangle>();
+            List<MeshGenerator.Elements.Triangle> ForDisplayModel = new List<MeshGenerator.Elements.Triangle>();
             vertebras.ForEach(trngls => allVertebras.AddRange(trngls));
+            vertebras.ForEach(trngls => ForDisplayModel.AddRange(trngls));
+            disks.ForEach(trngls => ForDisplayModel.AddRange(trngls));
 
             double shiftX = Math.Abs(allVertebras.Min(tngl => tngl.Center.X));
             double shiftY = Math.Abs(allVertebras.Min(tngl => tngl.Center.Y));
@@ -3113,7 +3118,7 @@ namespace Volot
             //trnglRepository.Create(model.Id + "in", model.Triangles);
             //trnglRepository.Create(model.Id + "load", ((Force)load).LoadedTriangles);
             //trnglRepository.Create(model.Id + "fix", ((VolumeBoundaryCondition)conditions).FixedTriangles);
-            MessageBox.Show(@"Сетка создана. Начинается вычисление. Дождитесь завершения.");
+           // MessageBox.Show(@"Сетка создана. Начинается вычисление. Дождитесь завершения.");
             
             solver = new StressStrainSparseMatrix(model);
             solution = new StaticMechanicSparseSolution(solver, model);
@@ -3147,8 +3152,12 @@ namespace Volot
             TotalEpure(model.Nodes, solution.Results, "TotalEpureSpine");
 
             List<Tetrahedron> outList = ApplyResultsToTetrahedrons(results);
+            List<Node> nodlist = ApplyResultsToGenList(results);
             tetrahedralRepository.Create(workpath + "Calc_File_" + "out", outList);
-            tetrahedralRepository.Create2(workpath + "Calc_File_" + "out2", outList);
+            //tetrahedralRepository.Create2(workpath + "Calc_File_" + "out2", outList);
+            trinagleRepository.Create2(workpath + "Calc_File_" + "out2", ForDisplayModel, nodlist);
+            trinagleRepository.Create(workpath + "Calc_File_" + "out3", ForDisplayModel);
+
 
             MessageBox.Show($"Total time solving SLAE: {endSolve.TotalSeconds} sec.");
         }
@@ -3159,6 +3168,7 @@ namespace Volot
 
             List<double> formax = new List<double>();
             List<Tetrahedron> list = new List<Tetrahedron>();
+            List<Node> nodlist = new List<Node>();
             StreamWriter wt1 = new StreamWriter(workpath + "test.color");
             double max1 = 0;
 
@@ -3177,10 +3187,33 @@ namespace Volot
                 });
                 list.Add(tmp);
             }
+
+            nodlist = model.Nodes;
+            nodlist.ForEach(n =>
+            {
+                double z = Math.Abs(solution.Results[n.GlobalIndex * 3 + 2]);
+                n.DefColor = z;
+            });
+
             max1 = formax.Max();
             wt1.WriteLine($"{max1}");
             wt1.Close();
             return list;
+        }
+
+        private List<Node> ApplyResultsToGenList(double[] results)
+        {
+            string workpath = Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\";
+            List<Node> nodlist = new List<Node>();
+
+            nodlist = model.Nodes;
+            nodlist.ForEach(n =>
+            {
+                double z = Math.Abs(solution.Results[n.GlobalIndex * 3 + 2]);
+                n.DefColor = z;
+            });
+
+            return nodlist;
         }
 
         private FeModel ReadDisk(int firstVertNum, int secondVertNum, int diskMaterialId, string wpath)
