@@ -131,7 +131,7 @@ namespace Volot.Model
                     if (index >= items2.Count)
                         index--;
                     var X_coord = items2[index].X;
-                    var Ydata = data.Where(e => e[0]>=X_coord-5 && e[0] <= X_coord+5).ToList();
+                    var Ydata = data.Where(e => e[0]>=X_coord-10 && e[0] <= X_coord+10).ToList();
                     Ydata.Sort((x, y) => x[1].CompareTo(y[1]));
                     keys = Ydata.Select(x => x[1]).ToList();
                     index = keys.BinarySearch(node.Y);
@@ -142,7 +142,7 @@ namespace Volot.Model
                     if (index >= Ydata.Count)
                         index--;
                     var Y_coord = Ydata[index][1];
-                    var Zdata = data.Where(e => (e[0] >= X_coord - 5 && e[0] <= X_coord + 5) && (e[1] >= Y_coord - 5 && e[1] <= Y_coord + 5)).ToList();
+                    var Zdata = data.Where(e => (e[0] >= X_coord - 10 && e[0] <= X_coord + 10) && (e[1] >= Y_coord - 10 && e[1] <= Y_coord + 10)).ToList();
                     Zdata.Sort((x, y) => x[2].CompareTo(y[2]));
                     keys = Zdata.Select(x => x[2]).ToList();
                     index = keys.BinarySearch(node.Z);
@@ -153,7 +153,7 @@ namespace Volot.Model
                     if (index >= Zdata.Count)
                         index--;
                     var Z_coord = Zdata[index][2];
-                    var color = items2.Where(e => (e.X >= X_coord - 5 && e.X <= X_coord + 5) && (e.Y >= Y_coord - 5 && e.Y <= Y_coord + 5) && (e.Z >= Z_coord - 5 && e.Z <= Z_coord + 5)).First();
+                    var color = items2.Where(e => (e.X >= X_coord - 10 && e.X <= X_coord + 10) && (e.Y >= Y_coord - 10 && e.Y <= Y_coord + 10) && (e.Z >= Z_coord - 10 && e.Z <= Z_coord + 10)).First();
 
                     sw.WriteLine($"      vertex {(node.X+700).ToString().Replace(',', '.') } {node.Y.ToString().Replace(',', '.')} {node.Z.ToString().Replace(',', '.')} {color.DefColor}");
                 }

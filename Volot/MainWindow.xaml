@@ -52,6 +52,7 @@
                     <RibbonButton Label="Расчет" Click="MakeCalc_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
                     <RibbonButton Label="Показать в папке" Click="OpenFolder_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
                     <RibbonButton Label="Показать" Click="ShowView_Click" LargeImageSource="/Volot;component/Pictures/Menu/Zoom_64x.png" />
+                    <TextBox Height="23" TextWrapping="Wrap" Name="NumberTextBox" PreviewTextInput="NumberValidationTextBox" Text="1000" Width="120" Margin="10,15,0,0"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Инструменты">
@@ -78,6 +79,7 @@
                     <RibbonButton Label="Экспорт в XLS" Click="ExportXLSButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/Table_64x.png"/>
                     <RibbonButton Label="Экспорт в XML" Click="ExportXMLButton_Click" LargeImageSource="/Volot;component/Pictures/Menu/ProjectXML_64x.png"/>
                 </RibbonGroup>
+               
             </RibbonTab>
         </Ribbon>
 

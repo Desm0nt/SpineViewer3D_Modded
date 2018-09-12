@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Management;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -357,9 +359,32 @@ namespace Volot
         }
         private void CreateVerticesForSquare2(OpenGL gl, float[] vert, float[] col, float[] nrm)
         {
-            var vertices = vert;
-            var colors = col; // Colors for our vertices  
-            var normals = nrm;
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+            string graphicsCard = string.Empty;
+            foreach (ManagementObject obj in searcher.Get())
+            {
+                if (obj["CurrentBitsPerPixel"] != null && obj["CurrentHorizontalResolution"] != null)
+                {
+                    graphicsCard = obj["Name"].ToString();
+                }
+            }
+
+            string[] checkname1 = graphicsCard.Split(' ');
+            List<string> checkname2 = new List<string>(checkname1);
+            string match = checkname2.FirstOrDefault(element => element.Equals("nvidia",
+                                     StringComparison.CurrentCultureIgnoreCase));
+            var vertices = nrm;
+            var colors = vert; // Colors for our vertices  
+            var normals = col;
+
+
+            if (match != null)
+            {
+                vertices = vert;
+                colors = col; // Colors for our vertices  
+                normals = nrm;
+            }
+
 
             //  Create the vertex array object.
             vertexBufferArray = new VertexBufferArray();

@@ -38,6 +38,7 @@ using MeshGenerator.Utils;
 using Volot.Model;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Volot
 {
@@ -174,6 +175,12 @@ namespace Volot
             CloseFileImmediately();
 
             CheckNeedSave();
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         public void OpenInstrumentWindow(int direction)
@@ -2781,6 +2788,8 @@ namespace Volot
             string[] pozvdown = new string[] { "L2_full_down.stl", "L3_full_down.stl", "L4_full_down.stl", "L5_full_down.stl" };
             string[] pozvup = new string[] { "L1_full_up.stl", "L2_full_up.stl", "L3_full_up.stl", "L4_full_up.stl" };
             string[] diskname = new string[] { "l1-l2.stl", "l2-l3.stl", "l3-l4.stl", "l4-l5.stl" };
+            string[] disknamedxf = new string[] { "l1-l2.dxf", "l2-l3.dxf", "l3-l4.dxf", "l4-l5.dxf" };
+            string[] cutpozvonsdxf = new string[] { "L1.dxf", "L2.dxf", "L3.dxf", "L4.dxf", "L5.dxf" };
             for (int i = 0; i < diskname.Length; i++)
             {
                 try
@@ -2794,10 +2803,18 @@ namespace Volot
                         if(!File.Exists(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvons[i]) || !File.Exists(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvons[i+1]))
                             throw new Exception();
                     }
+
                     var uppath = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvup[i]);
                     var downpath = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvdown[i]);
                     var diskpath = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + diskname[i]);
-
+                    var pozvpath = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvons[i]);
+                    var diskpathdxf = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + "dxf" + "\\" + disknamedxf[i]);
+                    var pozvpathdxf = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + "dxf" + "\\" + cutpozvonsdxf[i]);
+                    System.IO.Directory.CreateDirectory(System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + "dxf"));
+                    if (File.Exists(diskpath))
+                    {
+                        File.Delete(diskpath);
+                    }
                     Process process = new Process();
                     process.StartInfo.FileName = "VolotDiscReconstructor.exe";
                     process.StartInfo.Arguments = uppath + " " + downpath + " " + diskpath;
@@ -2810,12 +2827,50 @@ namespace Volot
                     // В StringBuilder будем добавлять полученные данные
                     //Запускаем процесс
                     process.Start();
+
+                    Process process2 = new Process();
+                    process2.StartInfo.FileName = "meshlabserver.exe";
+                    string args = " -i \"" + diskpath + "\" -o \"" + diskpathdxf + "\"";
+                    process2.StartInfo.Arguments = args;
+                    process2.EnableRaisingEvents = true;
+                    process2.StartInfo.UseShellExecute = false;
+                    process2.StartInfo.CreateNoWindow =
+                        false; // включает/отключает скрытие окна вызванного процесса (скрытие выключено)
+                               // Говорим что нужно редиректить выходной поток  
+                    process2.StartInfo.RedirectStandardOutput = true;
+                    process2.Start(); // запуск процесса
+
+                    Process process3 = new Process();
+                    process3.StartInfo.FileName = "meshlabserver.exe";
+                    process3.StartInfo.Arguments =
+                        " -i \"" + pozvpath + "\" -o \"" + pozvpathdxf + "\""; ;
+                    process3.EnableRaisingEvents = true;
+                    process3.StartInfo.UseShellExecute = false;
+                    process3.StartInfo.CreateNoWindow =
+                        false; // включает/отключает скрытие окна вызванного процесса (скрытие выключено)
+                               // Говорим что нужно редиректить выходной поток  
+                    process3.StartInfo.RedirectStandardOutput = true;
+                    process3.Start(); // запуск процесса
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
+            var pozvpath2 = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + cutpozvons[4]);
+            var pozvpathdxf2 = System.IO.Path.Combine(Environment.CurrentDirectory + "\\" + "images" + "\\" + tmphash + "\\" + "dxf" + "\\" + cutpozvonsdxf[4]);
+
+            Process process4 = new Process();
+            process4.StartInfo.FileName = "meshlabserver.exe";
+            process4.StartInfo.Arguments =
+                " -i \"" + pozvpath2 + "\" -o \"" + pozvpathdxf2 + "\""; ;
+            process4.EnableRaisingEvents = true;
+            process4.StartInfo.UseShellExecute = false;
+            process4.StartInfo.CreateNoWindow =
+                false; // включает/отключает скрытие окна вызванного процесса (скрытие выключено)
+                       // Говорим что нужно редиректить выходной поток  
+            process4.StartInfo.RedirectStandardOutput = true;
+            process4.Start(); // запуск процесса
             MessageBox.Show(@"Готово!");
         }
 
@@ -3092,6 +3147,7 @@ namespace Volot
 
             //load = new Force(SelectedSide.TOP, new Node((int)avX, (int)avY, maxZ - 10), forceValue, true, model.Triangles);
             //conditions = new VolumeBoundaryCondition(SelectedSide.BOTTOM, new Node((int)avX, (int)avY, minZ + 5), model.Triangles);
+            forceValue = Int32.Parse(NumberTextBox.Text) / 1000;
 
             load = new ConcentratedForce(SelectedSide.TOP, forceValue, true, model.Nodes, height / 10.0);
             conditions = new VolumeBoundaryCondition(SelectedSide.BOTTOM, model.Nodes, height / 20.0);
